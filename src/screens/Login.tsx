@@ -7,8 +7,8 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleLogin() {
-    const success = signIn(email, password);
+  async function handleLogin() {
+    const success = await signIn(email, password);
 
     if (!success) {
       Alert.alert('Erro', 'Email ou senha inválidos');
@@ -18,7 +18,11 @@ export default function Login() {
   return (
     <View>
       <TextInput placeholder="Email" onChangeText={setEmail} />
-      <TextInput placeholder="Senha" secureTextEntry onChangeText={setPassword} />
+      <TextInput
+        placeholder="Senha"
+        secureTextEntry
+        onChangeText={setPassword}
+      />
       <Button title="Entrar" onPress={handleLogin} />
     </View>
   );
