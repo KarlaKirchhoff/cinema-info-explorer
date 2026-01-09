@@ -15,7 +15,7 @@ interface Props extends TextProps {
   variant?: Variant;
 }
 
-export function Text({ variant = 'body', style, ...props }: Props) {
+export function Text_Component({ variant = 'body', style, ...props }: Props) {
   return (
     <RNText
       {...props}
