@@ -2,6 +2,7 @@
   "expo": {
     "name": "cinema-info-explorer",
     "slug": "cinema-info-explorer",
+    "scheme": "cinema-info-explorer",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,13 +21,16 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "package": "com.cinemainfoexplorer.karlakirchhoff",
       "edgeToEdgeEnabled": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-sqlite"
+      "expo-sqlite",
+      "expo-asset",
+      "expo-router"
     ]
   }
 }

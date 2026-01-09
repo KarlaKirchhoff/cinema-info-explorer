@@ -1,8 +1,9 @@
 import { View, TextInput, Button, Alert } from 'react-native';
 import { useState } from 'react';
-import { useAuth } from '../context/authContext';
+import { useAuth } from '../../context/authContext';
+import { router } from 'expo-router';
 
-export default function Login() {
+export default function Login_Screen() {
   const { signIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,6 +16,11 @@ export default function Login() {
     }
   }
 
+  function handleRegisterNavigation() {
+    router.push('/register');
+    // ou: router.push('/(auth)/register');
+  }
+
   return (
     <View>
       <TextInput placeholder="Email" onChangeText={setEmail} />
@@ -24,6 +30,7 @@ export default function Login() {
         onChangeText={setPassword}
       />
       <Button title="Entrar" onPress={handleLogin} />
+      <Button title="Registrar" onPress={handleRegisterNavigation} />
     </View>
   );
 }

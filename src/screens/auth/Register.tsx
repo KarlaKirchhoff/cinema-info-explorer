@@ -1,8 +1,8 @@
 import { View, TextInput, Button, Alert } from 'react-native';
 import { useState } from 'react';
-import { createUser } from '../repositories/auth.repository';
+import { createUser } from '../../repositories/auth.repository';
 
-export default function Register() {
+export default function Register_Screen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
