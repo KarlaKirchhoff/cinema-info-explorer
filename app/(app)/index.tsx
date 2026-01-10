@@ -3,6 +3,9 @@ import { View, Text, FlatList, Image, ActivityIndicator, StyleSheet } from 'reac
 import { fetchPopularMovies } from '../../src/api/moviesAPI';
 import { Movie } from '../../src/types/responseApi/Movie';
 
+//Componentes Internos
+import MovieList_Component from '../../src/components/List/MovieList';
+
 const HomeScreen = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
@@ -18,21 +21,15 @@ const HomeScreen = () => {
 
   if (loading) return <ActivityIndicator size="large" style={{ flex: 1 }} />;
 
+  // Aqui você pode desestruturar o array ou limitar os itens antes de passar
+  const limitedMovies = movies.slice(0, 10).map(({ id, title, poster_path }) => ({
+    id,
+    title,
+    image: `https://image.tmdb.org/t/p/w500${poster_path}`,
+  }));
+
   return (
-    <FlatList
-      data={movies}
-      keyExtractor={(item) => item.id.toString()}
-      contentContainerStyle={{ padding: 16 }}
-      renderItem={({ item }) => (
-        <View style={styles.movieCard}>
-          <Image
-            style={styles.poster}
-            source={{ uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
-          />
-          <Text style={styles.title}>{item.title}</Text>
-        </View>
-      )}
-    />
+    <MovieList_Component movies={limitedMovies} />
   );
 };
 
