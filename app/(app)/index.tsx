@@ -1,69 +1,45 @@
-// app/(app)/index.tsx
-import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-import { useAuth } from '../../src/context/authContext';
-import { router } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, Image, ActivityIndicator, StyleSheet } from 'react-native';
+import { fetchPopularMovies } from '../../src/api/moviesAPI';
+import { Movie } from '../../src/types/responseApi/Movie';
 
-import { Text_Component } from '../../src/components/Text';
+const HomeScreen = () => {
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState(true);
 
-export default function HomeScreen() {
-  const { user, signOut } = useAuth();
+  useEffect(() => {
+    const loadMovies = async () => {
+      const data = await fetchPopularMovies();
+      setMovies(data);
+      setLoading(false);
+    };
+    loadMovies();
+  }, []);
+
+  if (loading) return <ActivityIndicator size="large" style={{ flex: 1 }} />;
 
   return (
-    <View style={styles.container}>
-      <View style={{ padding: 24 }}>
-        <Text_Component variant="heading1">Heading 1</Text_Component>
-        <Text_Component variant="heading2">Heading 2</Text_Component>
-        <Text_Component variant="heading3">Heading 3</Text_Component>
-
-        <Text_Component variant="bodyLarge">
-          Texto body large para destaque.
-        </Text_Component>
-
-        <Text_Component>
-          Texto body padrão do aplicativo.
-        </Text_Component>
-
-        <Text_Component variant="bodySmall">
-          Texto menor.
-        </Text_Component>
-
-        <Text_Component variant="caption">
-          Texto de legenda.
-        </Text_Component>
-      </View>
-
-      <Text style={styles.title}>Bem-vindo, Usuário!</Text>
-
-      <Text style={styles.subtitle}>Esta é a tela principal do app.</Text>
-
-      <Button
-        title="Sair"
-        onPress={() => {
-          signOut();            // limpa sessão
-          router.replace('/(auth)/login'); // redireciona para login
-        }}
-      />
-    </View>
+    <FlatList
+      data={movies}
+      keyExtractor={(item) => item.id.toString()}
+      contentContainerStyle={{ padding: 16 }}
+      renderItem={({ item }) => (
+        <View style={styles.movieCard}>
+          <Image
+            style={styles.poster}
+            source={{ uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
+          />
+          <Text style={styles.title}>{item.title}</Text>
+        </View>
+      )}
+    />
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 24,
-    backgroundColor: '#f8f9fa',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 12,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#555',
-    marginBottom: 24,
-  },
+  movieCard: { marginBottom: 20 },
+  poster: { width: '100%', height: 300, borderRadius: 8 },
+  title: { marginTop: 8, fontSize: 16, fontWeight: 'bold' },
 });
+
+export default HomeScreen;
