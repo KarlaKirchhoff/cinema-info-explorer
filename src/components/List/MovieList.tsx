@@ -21,7 +21,7 @@ export default function MovieList_Component({ movies }: MovieListProps) {
       renderItem={({ item }) => (
         <MovieCard
           key={item.id}
-          image={`https://image.tmdb.org/t/p/w500${item.image}`}
+          image={item.image}
           title={item.title}
         />
       )}
