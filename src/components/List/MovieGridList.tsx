@@ -12,7 +12,7 @@ export default function MovieGridList({ movies, onPressMovie }: Props) {
     <FlatList
       data={movies}
       keyExtractor={(item) => item.id.toString()}
-      numColumns={2}
+      numColumns={3}
       columnWrapperStyle={styles.row}
       contentContainerStyle={styles.list}
       showsVerticalScrollIndicator={false}
@@ -32,6 +32,6 @@ const styles = StyleSheet.create({
     paddingTop: 16,
   },
   row: {
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
 });

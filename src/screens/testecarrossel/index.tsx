@@ -1,7 +1,8 @@
 import { ScrollView } from 'react-native';
-import { MovieCarousel, Movie } from '@/components/MovieCarousel';
+import MovieCarousel from '../../components/carrossel/carrossel';
 
-const movies: Movie[] = [
+
+const movies = [
   {
     id: '1',
     title: 'Jurassic World',
@@ -25,7 +26,7 @@ export default function Home() {
       <MovieCarousel
         title="Now playing"
         data={movies}
-        onPressItem={(movie: Movie) => console.log(movie.title)}
+        onPressItem={(movie: any) => console.log(movie.title)}
       />
 
       <MovieCarousel

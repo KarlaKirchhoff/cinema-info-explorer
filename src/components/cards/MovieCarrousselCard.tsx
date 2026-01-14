@@ -30,29 +30,20 @@ export default function MovieCard_Component({movie, onPressItem }: MovieCard_Int
 }
 
 const CARD_WIDTH = width * 0.40;
-const CARD_HEIGHT = CARD_WIDTH * 1.5;
+const CARD_HEIGHT = CARD_WIDTH * 1.5 ;
 
 const styles = StyleSheet.create({
     movieCard: {
         width: CARD_WIDTH,
-        marginBottom: 20,
-        marginRight: 18,
+        height: CARD_HEIGHT,
+        marginBottom: 80,
+        marginRight: 20,
         borderRadius: 12,
         overflow: 'hidden',
     },
     poster: {
         width: '100%',
-        height: 300,
+        height: '100%',
         borderRadius: 8
-    },
-    title: {
-        marginTop: 8,
-        fontSize: 16,
-        fontWeight: 'bold'
-    },
-    image: {
-        width: CARD_WIDTH,
-        height: CARD_HEIGHT,
-        borderRadius: 12,
-    },
+    }
 });

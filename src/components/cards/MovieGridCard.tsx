@@ -9,7 +9,7 @@ interface Props {
 const { width } = Dimensions.get("window");
 
 // largura do card considerando padding e gap
-const CARD_WIDTH = (width - 48) / 2;
+const CARD_WIDTH = (width - 80) / 3;
 const CARD_HEIGHT = CARD_WIDTH * 1.5;
 
 export default function MovieGridCard({ movie, onPress }: Props) {
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     overflow: "hidden",
     marginBottom: 16,
+    marginRight: 18,
   },
   image: {
     width: "100%",
