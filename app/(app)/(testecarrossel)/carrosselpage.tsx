@@ -1,5 +1,7 @@
-import { ScrollView } from 'react-native';
-import { MovieCarousel, Movie } from '@/components/MovieCarousel';
+import { Button, ScrollView } from 'react-native';
+import MovieCarousel, { Movie } from '../../../src/components/carrossel/carrossel';
+import { router } from 'expo-router';
+
 
 const movies: Movie[] = [
   {
@@ -20,8 +22,12 @@ const movies: Movie[] = [
 ];
 
 export default function Home() {
+  function handleRegisterNavigation() {
+    router.push('/carrosselpage');
+  }
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
+      <Button title="Registrar" onPress={handleRegisterNavigation} />
       <MovieCarousel
         title="Now playing"
         data={movies}

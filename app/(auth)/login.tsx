@@ -18,7 +18,7 @@ export default function Login_Screen() {
 
     if (success) {
       Alert.alert('Bem-vindo!', `Usuário ${email} logado com sucesso`);
-      router.push("/(app)");
+      router.push("/(app)/");
     } else {
       Alert.alert('Erro', 'Email ou senha inválidos');
     }
