@@ -7,6 +7,7 @@ import { Movie } from '../../src/types/responseApi/Movie';
 import MovieList_Component from '../../src/components/List/MovieCarrousselList';
 import MovieGridList from '../../src/components/List/MovieGridList';
 import { useTheme } from '../../src/context/themeContext';
+import SearchInput from '../../src/components/SearchInput/SearchInput';
 
 const HomeScreen = () => {
   const { colors, theme, toggleTheme } = useTheme();
@@ -29,6 +30,7 @@ const HomeScreen = () => {
     ...item,
     image: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
   }));
+  
 
   // Estilos dinâmicos baseados no tema
   const styles = StyleSheet.create({
@@ -47,6 +49,8 @@ const HomeScreen = () => {
       <View style={styles.button}>
         <Button title="Trocar Tema" onPress={toggleTheme} color={colors.active} />
       </View>
+
+      <SearchInput />
 
       <MovieList_Component movies={limitedMovies} />
       <MovieGridList movies={limitedMovies} />

@@ -3,7 +3,7 @@ import { Text_Component as Text } from '../Text';
 
 const { width } = Dimensions.get('window');
 
-export interface Movie {
+interface Movie {
   id: string;
   title: string;
   poster: string;
