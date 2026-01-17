@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
-import { searchMovie } from '../../api/moviesAPI';
+import { searchMovie } from '../api/moviesAPI';
 
 type Movie = {
   id: number;

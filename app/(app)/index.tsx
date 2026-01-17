@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Button, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { fetchPopularMovies } from '../../src/api/moviesAPI';
 import { Movie } from '../../src/types/responseApi/Movie';
 
@@ -8,9 +8,10 @@ import MovieList_Component from '../../src/components/List/MovieCarrousselList';
 import MovieGridList from '../../src/components/List/MovieGridList';
 import { useTheme } from '../../src/context/themeContext';
 import SearchInput from '../../src/components/SearchInput/SearchInput';
+import ActivityIndicator from '../../src/components/ActivityIndicator';
 
 const HomeScreen = () => {
-  const { colors, theme, toggleTheme } = useTheme();
+  const { colors } = useTheme();
 
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
@@ -24,7 +25,7 @@ const HomeScreen = () => {
     loadMovies();
   }, []);
 
-  if (loading) return <ActivityIndicator size="large" style={{ flex: 1, backgroundColor: colors.background }} />;
+  if (loading) return <ActivityIndicator />;
 
   const limitedMovies = movies.slice(0, 10).map((item) => ({
     ...item,
@@ -46,10 +47,6 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.button}>
-        <Button title="Trocar Tema" onPress={toggleTheme} color={colors.active} />
-      </View>
-
       <SearchInput />
 
       <MovieList_Component movies={limitedMovies} />

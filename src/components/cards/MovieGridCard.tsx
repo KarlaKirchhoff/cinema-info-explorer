@@ -3,7 +3,7 @@ import { Item_Movie_Carrossel } from "../List/MovieCarrousselList";
 
 interface Props {
   movie: Item_Movie_Carrossel;
-  onPress?: (movie: Item_Movie_Carrossel) => void;
+  onPressItem?: (movie: Item_Movie_Carrossel) => void;
 }
 
 const { width } = Dimensions.get("window");
@@ -12,12 +12,12 @@ const { width } = Dimensions.get("window");
 const CARD_WIDTH = (width - 80) / 3;
 const CARD_HEIGHT = CARD_WIDTH * 1.5;
 
-export default function MovieGridCard({ movie, onPress }: Props) {
+export default function MovieGridCard({ movie, onPressItem }: Props) {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       style={styles.card}
-      onPress={() => onPress?.(movie)}
+      onPress={() => onPressItem?.(movie)}
     >
       <Image
         source={{ uri: movie.image }}

@@ -1,13 +1,13 @@
 import { FlatList, StyleSheet, View } from "react-native";
 import MovieGridCard from "../cards/MovieGridCard";
 import { Item_Movie_Carrossel } from "./MovieCarrousselList";
+import OpenDetailsAboutMovieScreen from "../../utils/Functions/OpenDetailsAboutMovieScreen";
 
 interface Props {
   movies: Item_Movie_Carrossel[];
-  onPressMovie?: (movie: Item_Movie_Carrossel) => void;
 }
 
-export default function MovieGridList({ movies, onPressMovie }: Props) {
+export default function MovieGridList({ movies }: Props) {
   return (
     <FlatList
       data={movies}
@@ -19,7 +19,17 @@ export default function MovieGridList({ movies, onPressMovie }: Props) {
       renderItem={({ item }) => (
         <MovieGridCard
           movie={item}
-          onPress={onPressMovie}
+          onPressItem={(movies) => OpenDetailsAboutMovieScreen({
+            id: movies.id,
+            title: movies.title,
+            image: movies.image,
+            backdrop_path: movies.backdrop_path,
+            vote_average: movies.vote_average,
+            release_date: movies.release_date,
+            duration: 148,
+            genre_ids: movies.genre_ids,
+            overview: movies.overview,
+          })}
         />
       )}
     />

@@ -23,8 +23,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   async function signUp(email: string, password: string): Promise<boolean> {
     try {
-      console.log(email);
-      
       await createUser(email, password);
       return true;
     } catch (error) {
