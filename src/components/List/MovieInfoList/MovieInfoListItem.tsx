@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { FontAwesome, Feather } from "@expo/vector-icons";
 import { Item_Movie_Carrossel } from "../MovieCarrousselList";
 import { getMovieDetails } from "../../../api/moviesAPI";
@@ -10,7 +10,7 @@ interface Props {
     onPress?: (movie: Item_Movie_Carrossel) => void;
 }
 
-export function MovieCard({ movie }: Props) {
+export function MovieInfoListItem({ movie, onPress }: Props) {
 
     const [info, setInfo] = useState<MovieDetais | null>(null);
 
@@ -26,7 +26,10 @@ export function MovieCard({ movie }: Props) {
     const duration: string = info?.runtime.toString() ?? '--'
 
     return (
-        <View style={styles.container}>
+        <TouchableOpacity 
+            activeOpacity={0.8}
+            style={styles.container}
+            onPress={() => onPress?.(movie)}>
             <Image source={{ uri: movie.image }} style={styles.poster} />
 
             <View style={styles.info}>
@@ -41,7 +44,7 @@ export function MovieCard({ movie }: Props) {
 
                 <View style={styles.row}>
                     <Feather name="film" size={14} color="#B0B0B0" />
-                    <Text style={styles.text}>{movie.genre_ids[0]}</Text>
+                    <Text style={styles.text}>{info?.genres[0].name}</Text>
                 </View>
 
                 <View style={styles.row}>
@@ -54,14 +57,13 @@ export function MovieCard({ movie }: Props) {
                     <Text style={styles.text}>{duration} minutes</Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
-        backgroundColor: "#1E1E1E",
         borderRadius: 12,
         padding: 12,
         marginBottom: 16,

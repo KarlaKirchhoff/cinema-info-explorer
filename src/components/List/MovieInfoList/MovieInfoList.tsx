@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import MovieInfoLisItem from "./MovieInfoListItem";
+import { MovieInfoListItem } from "./MovieInfoListItem";
 import type { Item_Movie_Carrossel } from "../MovieCarrousselList";
 
 interface Props {
@@ -15,7 +15,7 @@ export default function MovieInfoList({ movies, onPressMovie }: Props) {
             keyExtractor={(item) => item.id.toString()}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
-                <MovieInfoLisItem
+                <MovieInfoListItem
                     movie={item}
                     onPress={onPressMovie}
                 />

@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+/* import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import type { Item_Movie_Carrossel } from "../MovieCarrousselList";
 
 interface Props {
@@ -71,3 +71,4 @@ const styles = StyleSheet.create({
         marginBottom: 8,
     },
 });
+ */
