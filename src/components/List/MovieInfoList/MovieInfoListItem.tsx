@@ -1,73 +1,99 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import type { Item_Movie_Carrossel } from "../MovieCarrousselList";
+import { useEffect, useState } from "react";
+import { View, Text, Image, StyleSheet } from "react-native";
+import { FontAwesome, Feather } from "@expo/vector-icons";
+import { Item_Movie_Carrossel } from "../MovieCarrousselList";
+import { getMovieDetails } from "../../../api/moviesAPI";
+import { MovieDetais } from "../../../types/responseApi/Movie";
 
 interface Props {
     movie: Item_Movie_Carrossel;
     onPress?: (movie: Item_Movie_Carrossel) => void;
 }
 
-export default function MovieInfoListItem({ movie, onPress }: Props) {
-    const overview =
-        movie.overview && movie.overview.length >= 5
-            ? movie.overview
-            : "Sem descrição";
+export function MovieCard({ movie }: Props) {
 
+    const [info, setInfo] = useState<MovieDetais | null>(null);
+
+    useEffect(() => {
+        const loadMovies = async () => {
+            const data = await getMovieDetails(Number(movie.id));
+            setInfo(data);
+        };
+        loadMovies();
+    }, []);
+
+    const year: string = movie.release_date.split("-")[0];
+    const duration: string = info?.runtime.toString() ?? '--'
 
     return (
-        <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.card}
-            onPress={() => onPress?.(movie)}
-        >
-            <View style={styles.imageArea}>
-                <Image
-                    source={{ uri: movie.image }}
-                    style={styles.image}
-                    resizeMode="cover"
-                />
+        <View style={styles.container}>
+            <Image source={{ uri: movie.image }} style={styles.poster} />
+
+            <View style={styles.info}>
+                <Text style={styles.title} numberOfLines={1}>
+                    {movie.title}
+                </Text>
+
+                <View style={styles.row}>
+                    <FontAwesome name="star" size={14} color="#F5C518" />
+                    <Text style={styles.rating}>{movie.vote_average}</Text>
+                </View>
+
+                <View style={styles.row}>
+                    <Feather name="film" size={14} color="#B0B0B0" />
+                    <Text style={styles.text}>{movie.genre_ids[0]}</Text>
+                </View>
+
+                <View style={styles.row}>
+                    <Feather name="calendar" size={14} color="#B0B0B0" />
+                    <Text style={styles.text}>{year}</Text>
+                </View>
+
+                <View style={styles.row}>
+                    <Feather name="clock" size={14} color="#B0B0B0" />
+                    <Text style={styles.text}>{duration} minutes</Text>
+                </View>
             </View>
-            <View style={styles.infoArea}>
-                <Text style={styles.movieTitle}>{movie.title}</Text>
-                <Text style={styles.date}>{movie.release_date}</Text>
-                <Text numberOfLines={4}>{overview ?? "Sem descrição"}</Text>
-            </View>
-        </TouchableOpacity >
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-    card: {
-        flexDirection: 'row',   // imagem e texto lado a lado
+    container: {
+        flexDirection: "row",
+        backgroundColor: "#1E1E1E",
+        borderRadius: 12,
         padding: 12,
-        borderBottomWidth: 1,
-        borderColor: '#eee',
-        marginBottom: 10,
-        alignItems: 'flex-start',  // alinha topo da imagem e texto
+        marginBottom: 16,
     },
-    imageArea: {
-        width: 80,      // largura fixa para a imagem
-        height: 130,     // altura fixa para a imagem
-        borderRadius: 8,
-        overflow: "hidden",
-        marginRight: 12, // espaço entre imagem e texto
-        backgroundColor: '#ccc',  // cor de fundo caso a imagem não carregue
+    poster: {
+        width: 90,
+        height: 130,
+        borderRadius: 10,
     },
-    image: {
-        width: "100%",
-        height: "100%",
+    info: {
+        flex: 1,
+        marginLeft: 12,
+        justifyContent: "space-between",
     },
-    infoArea: {
-        flex: 1,             // ocupa o restante do espaço disponível
-        justifyContent: 'flex-start',
+    title: {
+        color: "#FFFFFF",
+        fontSize: 18,
+        fontWeight: "600",
     },
-    movieTitle: {
-        fontWeight: 'bold',
-        fontSize: 16,
-        marginBottom: 4,
+    row: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 6,
     },
-    date: {
-        fontSize: 12,
-        color: '#666',
-        marginBottom: 8,
+    rating: {
+        color: "#F5C518",
+        fontWeight: "600",
+        marginLeft: 4,
+    },
+    text: {
+        color: "#B0B0B0",
+        fontSize: 14,
+        marginLeft: 4,
     },
 });

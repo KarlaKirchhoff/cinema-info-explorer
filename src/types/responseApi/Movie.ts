@@ -97,3 +97,8 @@ export interface MovieCast {
   credit_id: string,
   order: number
 }
+
+export interface MovieGenres {
+    id: number,
+    name: string
+}

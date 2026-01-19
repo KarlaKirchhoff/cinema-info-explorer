@@ -12,6 +12,7 @@ export type MovieParams_OpenDetailsAboutMovieScreen = {
     overview: string;
 }
 
+
 export type FunctionParams = {
     id: number;
     title: string;
@@ -25,13 +26,13 @@ export type FunctionParams = {
 }
 
 export default function OpenDetailsAboutMovieScreen(movie: FunctionParams) {
-   
+
     const backdropUrl: string = movie.backdrop_path
         ? `https://image.tmdb.org/t/p/w780${movie.backdrop_path}`
         : "";
     const genre: string = movie.genre_ids[0].toString()
     const year: string = movie.release_date.split("-")[0];
-    const duration: string = movie.duration.toString() ?? '128'
+    const duration: string = movie.duration.toString() ?? '--'
 
     router.push({
         pathname: "/(app)/detailsAboutMovie",

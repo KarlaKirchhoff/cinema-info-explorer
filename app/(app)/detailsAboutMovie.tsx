@@ -23,7 +23,7 @@ export default function DetailsAboutMovie() {
   } = useLocalSearchParams<MovieParams>();
 
   const [selectedTab, setSelectedTab] = useState<"about" | "reviews" | "cast">("about");
-  const [info, setInfo] = useState<MovieDetais>(null);
+  const [info, setInfo] = useState<MovieDetais | null>(null);
 
   useEffect(() => {
     const loadMovies = async () => {
@@ -75,9 +75,9 @@ export default function DetailsAboutMovie() {
             <View style={styles.meta}>
               <Text style={styles.metaText}>{year}</Text>
               <Text style={styles.metaText}>•</Text>
-              <Text style={styles.metaText}>{info.runtime} Minutes</Text>
+              <Text style={styles.metaText}>{info?.runtime} Minutes</Text>
               <Text style={styles.metaText}>•</Text>
-              <Text style={styles.metaText}>{genre}</Text>
+              <Text style={styles.metaText}>{info?.genres[0].name}</Text>
             </View>
           </View>
         </View>
