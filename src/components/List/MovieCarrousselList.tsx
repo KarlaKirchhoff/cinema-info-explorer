@@ -14,7 +14,6 @@ interface MovieListProps {
 }
 
 export default function MovieCarroussel_Component({ movies }: MovieListProps) {
-  //console.log(movies);
 
   return (
     <FlatList

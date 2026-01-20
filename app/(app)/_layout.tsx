@@ -1,6 +1,6 @@
 // app/(app)_layout.tsx
 import { Slot } from 'expo-router';
-import TopBar from '../../src/components/NavigationComponents/TopBar';
+import TopBar from '../../src/components/NavigationComponents/TopBar/TopBar';
 import { View, StyleSheet } from 'react-native';
 import { useTheme } from '../../src/context/themeContext';
 

@@ -14,8 +14,6 @@ const { width } = Dimensions.get("window");
 const ITEM_SIZE = width / 2 - 40;
 
 export default function CastGridListItem({ cast }: Props) {
-    console.log(cast);
-    
     return (
         <View style={styles.card}>
             <Image

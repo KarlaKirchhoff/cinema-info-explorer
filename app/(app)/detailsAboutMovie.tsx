@@ -17,8 +17,6 @@ export default function DetailsAboutMovie() {
     banner,
     rating,
     year,
-    duration,
-    genre,
     overview,
   } = useLocalSearchParams<MovieParams>();
 

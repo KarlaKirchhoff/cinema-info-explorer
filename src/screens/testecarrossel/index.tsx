@@ -26,7 +26,6 @@ export default function Home() {
       <MovieCarousel
         title="Now playing"
         data={movies}
-        onPressItem={(movie: any) => console.log(movie.title)}
       />
 
       <MovieCarousel

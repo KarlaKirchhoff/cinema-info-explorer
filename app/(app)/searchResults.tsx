@@ -31,7 +31,7 @@ export default function SearchResults() {
         <View style={{ flex: 1, padding: 16 }}>
             <SearchInput />
             {loading && <Text>Carregando...</Text>}
-            <MovieInfoList movies={formatedMovies} />
+            <MovieInfoList movies={formatedMovies}/>
         </View>
     );
 }

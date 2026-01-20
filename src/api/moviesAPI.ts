@@ -62,18 +62,13 @@ export const searchMovie = async (movie: string, pageNumber: string = '1', video
 }
 
 export const getMovieReview = async (movie_id: number, pageNumber: string = '1') => {
-    console.log('ok');
 
     const params = new URLSearchParams({
         page: pageNumber,
         api_key: urlBase_Apikey.key, // API Key no final
     });
     const url: string = `${urlBase_Apikey.url}/movie/${movie_id}/reviews?${params}`
-    console.log(url);
-
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data.results);
-
     return data.results
 }

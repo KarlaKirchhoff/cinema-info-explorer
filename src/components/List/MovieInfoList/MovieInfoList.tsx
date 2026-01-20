@@ -1,13 +1,13 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { MovieInfoListItem } from "./MovieInfoListItem";
 import type { Item_Movie_Carrossel } from "../MovieCarrousselList";
+import OpenDetailsAboutMovieScreen from "../../../utils/Functions/OpenDetailsAboutMovieScreen";
 
 interface Props {
     movies: Item_Movie_Carrossel[];
-    onPressMovie?: (movie: Item_Movie_Carrossel) => void;
 }
 
-export default function MovieInfoList({ movies, onPressMovie }: Props) {
+export default function MovieInfoList({ movies }: Props) {
 
     return (
         <FlatList
@@ -17,7 +17,17 @@ export default function MovieInfoList({ movies, onPressMovie }: Props) {
             renderItem={({ item }) => (
                 <MovieInfoListItem
                     movie={item}
-                    onPress={onPressMovie}
+                    onPressItem={(movies) => OpenDetailsAboutMovieScreen({
+                        id: movies.id,
+                        title: movies.title,
+                        image: movies.image,
+                        backdrop_path: movies.backdrop_path,
+                        vote_average: movies.vote_average,
+                        release_date: movies.release_date,
+                        duration: 148,
+                        genre_ids: movies.genre_ids,
+                        overview: movies.overview,
+                    })}
                 />
             )}
         />

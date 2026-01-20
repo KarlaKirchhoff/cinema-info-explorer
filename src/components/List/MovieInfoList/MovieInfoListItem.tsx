@@ -7,10 +7,10 @@ import { MovieDetais } from "../../../types/responseApi/Movie";
 
 interface Props {
     movie: Item_Movie_Carrossel;
-    onPress?: (movie: Item_Movie_Carrossel) => void;
+    onPressItem?: (movie: Item_Movie_Carrossel) => void;
 }
 
-export function MovieInfoListItem({ movie, onPress }: Props) {
+export function MovieInfoListItem({ movie, onPressItem }: Props) {
 
     const [info, setInfo] = useState<MovieDetais | null>(null);
 
@@ -29,7 +29,7 @@ export function MovieInfoListItem({ movie, onPress }: Props) {
         <TouchableOpacity 
             activeOpacity={0.8}
             style={styles.container}
-            onPress={() => onPress?.(movie)}>
+            onPress={() => onPressItem?.(movie)}>
             <Image source={{ uri: movie.image }} style={styles.poster} />
 
             <View style={styles.info}>
