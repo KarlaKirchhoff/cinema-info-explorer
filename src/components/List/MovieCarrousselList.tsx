@@ -8,12 +8,37 @@ export interface Item_Movie_Carrossel extends Movie {
   image: string
 }
 
+export type CarrousselStyles = {
+  top?: number,
+  bottom?: number,
+  left?: number,
+  right?: number,
+  horizontal?: number,
+  vertical?: number,
+}
+
 // Interface das props do componente
 interface MovieListProps {
   movies: Item_Movie_Carrossel[];
+  styles_carroussel?: CarrousselStyles,
 }
 
-export default function MovieCarroussel_Component({ movies }: MovieListProps) {
+export default function MovieCarroussel_Component({ movies, styles_carroussel }: MovieListProps) {
+
+  let top: number = styles_carroussel?.top ?? 0
+  let bottom: number = styles_carroussel?.bottom ?? 0
+  let left: number = styles_carroussel?.left ?? 16
+  let right: number = styles_carroussel?.right ?? 16
+
+  if (styles_carroussel?.horizontal) {
+    left = styles_carroussel.horizontal;
+    right = styles_carroussel.horizontal;
+  }
+
+  if (styles_carroussel?.vertical) {
+    top = styles_carroussel.vertical;
+    bottom = styles_carroussel.vertical;
+  }
 
   return (
     <FlatList
@@ -21,7 +46,12 @@ export default function MovieCarroussel_Component({ movies }: MovieListProps) {
       keyExtractor={(item) => item.id.toString()}
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={styles.list}
+      contentContainerStyle={{
+        paddingBottom: bottom,
+        paddingTop: top,
+        paddingLeft: left,
+        paddingRight: right
+      }}
       renderItem={({ item }) => (
         <MovieCard
           movie={item}

@@ -1,5 +1,5 @@
 import { ScrollView } from 'react-native';
-import MovieCarousel from '../../components/carrossel/carrossel';
+import MovieCarousel from '../../components/carroussel/carrossel';
 
 
 const movies = [

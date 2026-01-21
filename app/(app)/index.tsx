@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { fetchPopularMovies } from '../../src/api/moviesAPI';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { getPopularMovies } from '../../src/api/moviesAPI';
 import { Movie } from '../../src/types/responseApi/Movie';
 
 //Componentes Internos
-import MovieList_Component from '../../src/components/List/MovieCarrousselList';
-import MovieGridList from '../../src/components/List/MovieGridList';
+import MovieCarroussel, { CarrousselStyles } from '../../src/components/List/MovieCarrousselList';
 import { useTheme } from '../../src/context/themeContext';
 import SearchInput from '../../src/components/SearchInput/SearchInput';
 import ActivityIndicator from '../../src/components/ActivityIndicator';
+import NavMovieGridList from '../../src/components/NavMovieGridList';
 
-const HomeScreen = () => {
-  const { colors } = useTheme();
-
+const Conteudo = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadMovies = async () => {
-      const data = await fetchPopularMovies();
+      const data = await getPopularMovies();
       setMovies(data);
       setLoading(false);
     };
@@ -31,8 +29,20 @@ const HomeScreen = () => {
     ...item,
     image: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
   }));
-  
 
+  const carrousselStyles: CarrousselStyles = { top: 10, bottom: 120 }
+
+  return (
+    <>
+      <SearchInput />
+      <MovieCarroussel movies={limitedMovies} styles_carroussel={carrousselStyles} />
+      <NavMovieGridList />
+    </>
+  );
+};
+
+export default function HomeScreen() {
+    const { colors } = useTheme();
   // Estilos dinâmicos baseados no tema
   const styles = StyleSheet.create({
     container: {
@@ -44,15 +54,14 @@ const HomeScreen = () => {
       marginBottom: 10,
     },
   });
-
   return (
     <View style={styles.container}>
-      <SearchInput />
-
-      <MovieList_Component movies={limitedMovies} />
-      <MovieGridList movies={limitedMovies} />
+      <FlatList
+        data={[]}
+        keyExtractor={() => "static"}
+        renderItem={null}
+        ListHeaderComponent={Conteudo}
+      />
     </View>
-  );
-};
-
-export default HomeScreen;
+  )
+}
