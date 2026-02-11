@@ -10,10 +10,6 @@ export type User = {
 // Criar usuário
 export async function createUser(email: string, password: string): Promise<User> {
   const passwordHash = await hashPassword(password);
-
-  console.log('createUser');
-  
-
   try {
     db.runSync(
       'INSERT INTO users (email, password_hash) VALUES (?, ?)',

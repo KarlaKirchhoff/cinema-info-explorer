@@ -1,45 +1,67 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image, ActivityIndicator, StyleSheet } from 'react-native';
-import { fetchPopularMovies } from '../../src/api/moviesAPI';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { getPopularMovies } from '../../src/api/moviesAPI';
 import { Movie } from '../../src/types/responseApi/Movie';
 
-const HomeScreen = () => {
+//Componentes Internos
+import MovieCarroussel, { CarrousselStyles } from '../../src/components/List/MovieCarrousselList';
+import { useTheme } from '../../src/context/themeContext';
+import SearchInput from '../../src/components/SearchInput/SearchInput';
+import ActivityIndicator from '../../src/components/ActivityIndicator';
+import NavMovieGridList from '../../src/components/NavMovieGridList';
+
+const Conteudo = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadMovies = async () => {
-      const data = await fetchPopularMovies();
+      const data = await getPopularMovies();
       setMovies(data);
       setLoading(false);
     };
     loadMovies();
   }, []);
 
-  if (loading) return <ActivityIndicator size="large" style={{ flex: 1 }} />;
+  if (loading) return <ActivityIndicator />;
+
+  const limitedMovies = movies.slice(0, 10).map((item) => ({
+    ...item,
+    image: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+  }));
+
+  const carrousselStyles: CarrousselStyles = { top: 10, bottom: 120 }
 
   return (
-    <FlatList
-      data={movies}
-      keyExtractor={(item) => item.id.toString()}
-      contentContainerStyle={{ padding: 16 }}
-      renderItem={({ item }) => (
-        <View style={styles.movieCard}>
-          <Image
-            style={styles.poster}
-            source={{ uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
-          />
-          <Text style={styles.title}>{item.title}</Text>
-        </View>
-      )}
-    />
+    <>
+      <SearchInput />
+      <MovieCarroussel movies={limitedMovies} styles_carroussel={carrousselStyles} />
+      <NavMovieGridList />
+    </>
   );
 };
 
-const styles = StyleSheet.create({
-  movieCard: { marginBottom: 20 },
-  poster: { width: '100%', height: 300, borderRadius: 8 },
-  title: { marginTop: 8, fontSize: 16, fontWeight: 'bold' },
-});
-
-export default HomeScreen;
+export default function HomeScreen() {
+    const { colors } = useTheme();
+  // Estilos dinâmicos baseados no tema
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background, // tema atual
+      padding: 10,
+    },
+    button: {
+      marginBottom: 10,
+    },
+  });
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={[]}
+        keyExtractor={() => "static"}
+        renderItem={null}
+        ListHeaderComponent={Conteudo}
+      />
+    </View>
+  )
+}

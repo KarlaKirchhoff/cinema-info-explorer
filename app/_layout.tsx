@@ -12,6 +12,8 @@ import {
 } from '@expo-google-fonts/inter';
 
 import { AuthProvider } from '../src/context/authContext';
+import { ThemeProvider } from '../src/context/themeContext';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // Impede que a splash screen suma automaticamente
 SplashScreen.preventAutoHideAsync();
@@ -38,8 +40,12 @@ export default function RootLayout() {
   }
 
   return (
-    <AuthProvider>
-      <Stack screenOptions={{ headerShown: false }} />
-    </AuthProvider>
+    <SafeAreaProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <Stack screenOptions={{ headerShown: false }} />
+        </AuthProvider>
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
 }
