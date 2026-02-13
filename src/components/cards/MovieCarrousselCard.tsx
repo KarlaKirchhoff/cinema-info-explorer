@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     movieCard: {
         width: CARD_WIDTH,
         height: CARD_HEIGHT,
-        marginBottom: 80,
+        marginBottom: 30,
         marginRight: 20,
         borderRadius: 12,
         overflow: 'hidden',

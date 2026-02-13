@@ -30,7 +30,7 @@ const Conteudo = () => {
     image: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
   }));
 
-  const carrousselStyles: CarrousselStyles = { top: 10, bottom: 120 }
+  const carrousselStyles: CarrousselStyles = { top: 0, bottom: 0 }
 
   return (
     <>
@@ -48,11 +48,8 @@ export default function HomeScreen() {
     container: {
       flex: 1,
       backgroundColor: colors.background, // tema atual
-      padding: 10,
-    },
-    button: {
-      marginBottom: 10,
-    },
+      paddingHorizontal: 20,
+    }
   });
   return (
     <View style={styles.container}>

@@ -1,7 +1,17 @@
 import { urlBase_Apikey } from ".";
+import { parseQueryParams_StrBoolean, parseQueryParams_StrNumber } from "../utils/Functions/ApiParams";
 
 export const getPopularMovies = async (pageNumber: string = '1', video: string = 'false') => {
     try {
+
+        if(!parseQueryParams_StrNumber(pageNumber)){
+            throw new Error('Parametro PageNumber incorreto')
+        }
+
+        if(!parseQueryParams_StrBoolean(video)){
+            throw new Error('Parametro video incorreto')
+        }
+
         const params = new URLSearchParams({
             include_adult: 'false',
             include_video: video,

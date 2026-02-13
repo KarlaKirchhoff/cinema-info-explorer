@@ -71,9 +71,3 @@ export default function MovieCarroussel_Component({ movies, styles_carroussel }:
     />
   );
 }
-
-const styles = StyleSheet.create({
-  list: {
-    paddingHorizontal: 16,
-  },
-});

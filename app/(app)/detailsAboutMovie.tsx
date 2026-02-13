@@ -40,18 +40,6 @@ export default function DetailsAboutMovie() {
         }}
         style={styles.banner}
       />
-
-      {/* Header Actions */}
-      <View style={styles.headerActions}>
-        <TouchableOpacity>
-          <Ionicons name="arrow-back" size={24} color="#fff" />
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Ionicons name="bookmark-outline" size={24} color="#fff" />
-        </TouchableOpacity>
-      </View>
-
       {/* Movie Info */}
       <View style={styles.content}>
         <View style={styles.titleRow}>

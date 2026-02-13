@@ -12,7 +12,6 @@ export type MovieParams_OpenDetailsAboutMovieScreen = {
     overview: string;
 }
 
-
 export type FunctionParams = {
     id: number;
     title: string;
